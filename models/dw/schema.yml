@@ -1,0 +1,30 @@
+d_customer:
+    constraints:
+        not_null:
+            - customer_id
+        unique:
+            - customer_id
+d_product:
+    constraints:
+        not_null:
+            - product_id
+        unique:
+            - product_id
+d_campaign:
+    constraints:
+        not_null:
+            - campaign_id
+        unique:
+            - campaign_id
+f_order:
+    constraints:
+        not_null:
+            - customer_id
+            - product_id
+            - campaign_id
+    relationships:
+            - {from: customer_id, to: ref('d_customer'), field: customer_id}
+            - {from: product_id, to: ref('d_product'), field: product_id}
+            - {from: campaign_id, to: ref('d_campaign'), field: campaign_id}
+    dbt_utils.recency:
+            - {field: order_date, datepart: day, interval: 1}
