@@ -67,8 +67,6 @@ product:
     schema: "product"
 shop:
     schema: "shop"
-social
-    schema: "social"
 ```
 
 Thus, the date dimension table `d_date`, which is folder `date` will be created in schema `dt`.
