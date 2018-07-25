@@ -73,7 +73,7 @@ social
 
 Thus, the date dimension table `d_date`, which is folder `date` will be created in schema `dt`.
 This is done through the `get_custom_schema` macro and is defined to work in both `prod` and `dev`.
-So, if your production database is `dw` and your development database is `my_dev_db`, using `--target dev` will create `d_date` as `my_dev_db.dt.d_date`.
+So, if your development database is `my_dev_db`, using `--target dev` will create `d_date` as `my_dev_db.dt.d_date`.
 
 ### Missing Values
 Fact table dimension keys with missing members should follow this convention for handling "missingness":
