@@ -53,7 +53,9 @@ All development work should be done on a dedicated branch, using short-lived fea
 
 ## Conventions
 ### Folders & Schemas
-This project is set up to create tables in `custom schemas` as defined in `dbt_project.yml` according to the folders for each model:
+This project is set up to create tables in `custom schemas` as defined in `dbt_project.yml` according to the folders for each model. You will want to modify this according to your business rules and conventions.
+
+e.g.
 ```
 customer:
     schema: "customer"
