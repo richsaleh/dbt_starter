@@ -7,6 +7,34 @@ This is the [__dbt__](https://www.getdbt.com/) project for our data warehouse.
 1. Install [dbt](https://docs.getdbt.com/docs/installation)
 2. Clone repo
 3. Create a profile file with connections to your Snowflake or Redshift instance in `~/.dbt/profiles.yml`. Make sure to create both production `prod` and development `dev` sections for your database (Redshift, Snowflake or BigQuery) and set the default target to `dev`. [Instructions](https://docs.getdbt.com/docs/configure-your-profile)
+For example:
+```
+my-profile:
+    outputs:
+        prod:
+            type: snowflake
+            threads: 8
+            account: myaccount
+            user: dbt_user
+            password: mypassword
+            role: dbt_role
+            database: dw
+            warehouse: dbt
+            schema: dt
+
+        dev:
+            type: snowflake
+            threads: 8
+            account: myaccount
+            user: dbt_user
+            password: mypassword
+            role: dbt_role
+            database: my_personal_dev_db
+            warehouse: dbt
+            schema: dt
+
+        target: dev
+```
 4. To run:
     - `dbt run` <-- runs in default target (should be set to dev)
     - `dbt run --target prod` <-- runs in prod
