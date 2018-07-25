@@ -43,6 +43,7 @@ my-profile:
     - `dbt run --models +my_model --target dev` <-- runs 1 model and all its upstream dependencies in dev
     - `dbt run --models my_model+ --target dev` <-- runs 1 model and all its downstream dependencies in dev
     - `dbt run --models my_model+ --target dev --full-refresh` <-- runs *and rebuilds* 1 model and all its downstream dependencies in dev
+    - [more on](https://docs.getdbt.com/v0.10/reference#run) `run`
 
 ## Contributing
 
