@@ -33,17 +33,6 @@ select
     dayname(d.calendar_date) as day_of_week_name,
     to_char(d.calendar_date, 'Dy') as day_of_week_name_short,
     date_part('doy', d.calendar_date)::int as day_of_year,
-    -- case when h.calendar_date is not null then true else false end is_holiday,
-    -- coalesce(h.holiday_name, '') as holiday_name,
-    -- case
-    --     when h.holiday_name in ('Christmas Day', 'Independence Day', 'Labor Day', 'Memorial Day',
-    --         'New Year Day', 'Thanksgiving Day') then 1
-    --     when
-    --         (date_part('month', d.calendar_date) * 100 + date_part('day', d.calendar_date)) in
-    --         (1224, 1231)
-    --         then 1
-    --     else 0
-    -- end as is_shipping_holiday,
     date_trunc('week', d.calendar_date)::date as week_start_date,
     dateadd('day', 6, date_trunc('week', d.calendar_date))::date as week_end_date,
     date_part('week', d.calendar_date)::int as week_of_year,
