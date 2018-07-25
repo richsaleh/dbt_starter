@@ -6,7 +6,7 @@ This is an example [__dbt__](https://www.getdbt.com/) project for data warehouse
 
 1. Install [dbt](https://docs.getdbt.com/docs/installation)
 2. Clone repo
-3. Create a profile file with connections to your Snowflake or Redshift instance in `~/.dbt/profiles.yml`. Make sure to create both production `prod` and development `dev` sections for your database (Redshift, Snowflake or BigQuery) and set the default target to `dev`, following these [instructions](https://docs.getdbt.com/docs/configure-your-profile)
+3. Create a profile file with connections to your Snowflake or Redshift instance in `~/.dbt/profiles.yml`. Make sure to create both production `prod` and development `dev` sections for your database (Redshift, Snowflake or BigQuery) and set the default target to `dev`, following these [instructions](https://docs.getdbt.com/docs/configure-your-profile).
 
 For example:
 ```
@@ -39,6 +39,10 @@ my-profile:
 4. To run:
     - `dbt run` <-- runs in default target (should be set to dev)
     - `dbt run --target prod` <-- runs in prod
+    - `dbt run --models my_model --target dev` <-- runs 1 model in dev
+    - `dbt run --models +my_model --target dev` <-- runs 1 model and all its upstream dependencies in dev
+    - `dbt run --models my_model+ --target dev` <-- runs 1 model and all its downstream dependencies in dev
+    - `dbt run --models my_model+ --target dev --full-refresh` <-- runs *and rebuilds* 1 model and all its downstream dependencies in dev
 
 ## Contributing
 
