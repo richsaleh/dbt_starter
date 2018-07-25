@@ -1,0 +1,45 @@
+name: 'starter_dw'
+version: '0.1.0'
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+target-path: "target"
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ['macros']
+log-path: "logs"
+clean-targets: ["target", "dbt_modules"]
+
+profile: "my-profile"
+
+quoting:
+    identifier: false
+    schema: false
+
+models:
+    enabled: true        # configs defined here are applied to _all_ packages
+
+    starter_dw:
+        base:
+            schema: "_base"
+        dw:
+            customer:
+                schema: "customer"
+            date:
+                schema: "dt"
+            marketing:
+                schema: "marketing"
+            product:
+                schema: "product"
+            shop:
+                schema: "shop"
+            social:
+                schema: "social"
+
+    vars:
+        # put variables for source data tables here:
+        product.sku: fivetran.product.sku
+
+on-run-end:
+    # make sure to give your BI tools access to all the tables dbt maintains:
+    - 'GRANT USAGE ON SCHEMA "{{ target.schema }}" TO ROLE BI_TOOL_ROLE; GRANT SELECT ON ALL TABLES IN SCHEMA "{{ target.schema }}" TO ROLE BI_TOOL_ROLE'
+    - 'ALTER WAREHOUSE IF EXISTS "DBT" SUSPEND;'
