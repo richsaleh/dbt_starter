@@ -4,6 +4,8 @@ This is an example [__dbt__](https://www.getdbt.com/) project for data warehouse
 
 FYI: The code in this project won't actually compile when run via `dbt run` or `dbt compile` since *dbt* won't be able to validate table relationships and the connection until you've modified `profiles.yml` and `dbt_project.yml` to point to a valid database.
 
+This project currently only supports **Snowflake**, but can probably be made to work with Redshift with minor changes.
+
 ## Quickstart
 
 1. Install [dbt](https://docs.getdbt.com/docs/installation)
