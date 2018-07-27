@@ -37,7 +37,12 @@ models:
 
     vars:
         # put variables for source data tables here:
-        product.sku: fivetran.product.sku
+        customers: source_data.account.customers
+        skus: source_data.product.skus
+        products: source_data.product.products
+        brands: source_data.product.brands
+        campaigns: source_data.marketing.campaigns
+        orders: source_data.shop.orders
 
 on-run-end:
     # make sure to give your BI tools access to all the tables dbt maintains:
