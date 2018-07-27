@@ -117,7 +117,7 @@ Converts column to local time (`America/Los_Angeles`)
 - looks up `campaign_key` from `d_campaign`
 - `table` (persisted) model
 
-Here's a compiled graph of the model (from (https://graph.sinterdata.com/#!/render)):
+Here's a compiled graph of the model (from (https://graph.sinterdata.com)):
 ![model_graph](model_graph.png)
 
 ## Conventions
