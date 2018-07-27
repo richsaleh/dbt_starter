@@ -117,6 +117,9 @@ Converts column to local time (`America/Los_Angeles`)
 - looks up `campaign_key` from `d_campaign`
 - `table` (persisted) model
 
+Here's a compiled graph of the model (from (https://graph.sinterdata.com/#!/render)):
+![model_graph](model_graph.png)
+
 ## Conventions
 ### Folders & Schemas
 This project is set up to create tables in `custom schemas` as defined in `dbt_project.yml` according to the folders for each model. You will want to modify this according to your business rules and conventions.
