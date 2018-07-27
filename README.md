@@ -40,7 +40,11 @@ my-profile:
 
         target: dev
 ```
+
+Note: this project makes use of macros from the `dbt_utils` package as defined in `packages.yml`
+
 4. To run:
+    - `dbt deps` to refresh package dependencies
     - `dbt run` <-- runs in default target (should be set to dev)
     - `dbt run --target prod` <-- runs in prod
     - `dbt run --models my_model --target dev` <-- runs 1 model in dev
