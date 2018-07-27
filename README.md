@@ -47,11 +47,73 @@ my-profile:
     - `dbt run --models my_model+ --target dev --full-refresh` <-- runs *and rebuilds* 1 model and all its downstream dependencies in dev
     - [more on](https://docs.getdbt.com/v0.10/reference#run) `run`
 
-## Contributing
+## Example Macros
+##### get_custom_schema()
+If defined in `dbt_project.yml`, creates models in schemas as defined per folder.
 
-Please follow this [Git commit message style guide](https://chris.beams.io/posts/git-commit/).
+##### local_time()
+Converts column to local time (`America/Los_Angeles`)
 
-All development work should be done on a dedicated branch, using short-lived feature branches. When development of a new table / report is ready, submit a pull request and request a code review from your team. Once accepted into `master`, you can use tools such as [Sinter](https://www.sinterdata.com/) to manage updating models in production.
+## Example Models
+### Base Models
+##### brands
+- List of brands from the source data.
+- Renames `id` and `name` fields.
+- `ephemeral` model
+
+##### campaigns
+- List of campaigns from the source data.
+- Renames `id` and `name` fields.
+- `ephemeral` model
+
+##### customers
+- List of customers from the source data.
+- Renames some fields and concats first and last names.
+- `ephemeral` model
+
+##### dates
+- Uses `dbt_utils.date_spine` to create a list of dates and then adds informative date attributes
+- `ephemeral` model
+
+##### orders
+- List of orders from source data. Converts date to local timezone using the `local_time` macro.
+- `ephemeral` model
+
+##### products
+- List of products from the source data.
+- Renames `id` and `name` fields.
+- `ephemeral` model
+
+##### skus
+- List of skus from the source data.
+- Renames `id` and `name` fields.
+- `ephemeral` model
+
+### Dimensions
+##### d_date
+- `dates` exposed as dimension table.
+- `table` (persisted) model
+
+##### d_campaign
+- `campaigns` exposed as dimension table.
+- `table` (persisted) model
+
+##### d_customer
+- `customers` exposed as dimension table.
+- `table` (persisted) model
+
+##### d_sku
+- Denormalizes `sku` and `product` models
+- `table` (persisted) model
+
+### Facts
+##### f_registrations
+- `customers` exposed as fact table.
+- `table` (persisted) model
+
+##### f_orders
+- `orders` exposed as fact table.
+- `table` (persisted) model
 
 ## Conventions
 ### Folders & Schemas
@@ -87,3 +149,9 @@ Fact table dimension keys with missing members should follow this convention for
 | Description (long, from source)  | Source | _desc  | varchar   | (N/A)         | (Missing)  | (Unknown)  |
 
 Dimension tables should contain matching entries for defaults, missing and unknown members.
+
+## Contributing
+
+Please follow this [Git commit message style guide](https://chris.beams.io/posts/git-commit/).
+
+All development work should be done on a dedicated branch, using short-lived feature branches. When development of a new table / report is ready, submit a pull request and request a code review from your team. Once accepted into `master`, you can use tools such as [Sinter](https://www.sinterdata.com/) to manage updating models in production.
