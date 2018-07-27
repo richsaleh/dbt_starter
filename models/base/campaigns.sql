@@ -7,7 +7,7 @@
 select
     {{ default_key() }} as campaign_key,
     '(N/A)' as campaign_name,
-    '(N/A)' as campaign_channel
+    '(N/A)' as campaign_channel_name
 
 union all
 
@@ -17,6 +17,6 @@ union all
 select
     {{ dbt_utils.surrogate_key('c.name', 'c.channel') }} as campaign_key,
     c.name campaign_name,
-    c.channel as campaign_channel
+    c.channel as campaign_channel_name
 from
     {{ var('campaigns') }} c

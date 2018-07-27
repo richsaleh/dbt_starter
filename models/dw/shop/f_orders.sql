@@ -20,4 +20,4 @@ from
     left outer join
     {{ ref('d_campaign') }} c
         on o.campaign_name = c.campaign_name and
-            o.campaign_channel = c.campaign_channel
+            o.campaign_channel_name = c.campaign_channel_name

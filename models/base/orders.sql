@@ -9,7 +9,7 @@ select
     o.customer_id,
     o.sku as sku_id,
     o.campaign as campaign_name,
-    o.channel as campaign_channel,
+    o.channel as campaign_channel_name,
     1 as order_cnt
     o.order_amt
 from

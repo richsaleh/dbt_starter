@@ -14,18 +14,20 @@ d_sku:
 d_campaign:
     constraints:
         not_null:
-            - campaign_id
+            - campaign_key
+            - campaign_name
+            - campaign_channel_name
         unique:
-            - campaign_id
+            - campaign_key
 f_order:
     constraints:
         not_null:
             - customer_id
             - product_id
-            - campaign_id
+            - campaign_key
     relationships:
             - {from: customer_id, to: ref('d_customer'), field: customer_id}
             - {from: sku_id, to: ref('d_sku'), field: sku_id}
-            - {from: campaign_id, to: ref('d_campaign'), field: campaign_id}
+            - {from: campaign_key, to: ref('d_campaign'), field: campaign_key}
     dbt_utils.recency:
             - {field: order_date, datepart: day, interval: 1}
