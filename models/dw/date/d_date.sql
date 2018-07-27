@@ -6,4 +6,4 @@
 select
     d.*
 from
-    {{ ref('base_date')}} d
+    {{ ref('dates')}} d
