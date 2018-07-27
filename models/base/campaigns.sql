@@ -5,13 +5,18 @@
 }}
 -- we insert a default record
 select
-    -1001 as campaign_id,
-    '(N/A)' as campaign_name
+    {{ default_key() }} as campaign_key,
+    '(N/A)' as campaign_name,
+    '(N/A)' as campaign_channel
 
 union all
 
+-- campaigns names in our data are not unique and there's
+-- no unique id, so we create a surrogate key by hashing the unique
+-- combo or campaign name and channel
 select
-    c.id as campaign_id,
-    c.name campaign_name
+    {{ dbt_utils.surrogate_key('c.name', 'c.channel') }} as campaign_key,
+    c.name campaign_name,
+    c.channel as campaign_channel
 from
     {{ var('campaigns') }} c
