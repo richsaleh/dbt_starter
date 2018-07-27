@@ -57,18 +57,19 @@ Converts column to local time (`America/Los_Angeles`)
 ## Example Models
 ### Base Models
 ##### brands
-- List of brands from the source data.
-- Renames `id` and `name` fields.
+- List of brands from the source data
+- Renames `id` and `name` fields
 - `ephemeral` model
 
 ##### campaigns
-- List of campaigns from the source data.
-- Renames `id` and `name` fields.
+- List of campaigns from the source data
+- Renames `id` and `name` fields
+- Creates surrogate key from `campaign_name` and `campaign_channel` using `dbt_utils.surrogate_key()` macro
 - `ephemeral` model
 
 ##### customers
-- List of customers from the source data.
-- Renames some fields and concats first and last names.
+- List of customers from the source data
+- Renames some fields and concats first and last names
 - `ephemeral` model
 
 ##### dates
@@ -76,30 +77,30 @@ Converts column to local time (`America/Los_Angeles`)
 - `ephemeral` model
 
 ##### orders
-- List of orders from source data. Converts date to local timezone using the `local_time` macro.
+- List of orders from source data. Converts date to local timezone using the `local_time` macro
 - `ephemeral` model
 
 ##### products
-- List of products from the source data.
-- Renames `id` and `name` fields.
+- List of products from the source data
+- Renames `id` and `name` fields
 - `ephemeral` model
 
 ##### skus
-- List of skus from the source data.
-- Renames `id` and `name` fields.
+- List of skus from the source data
+- Renames `id` and `name` fields
 - `ephemeral` model
 
 ### Dimensions
 ##### d_date
-- `dates` exposed as dimension table.
+- `dates` exposed as dimension table
 - `table` (persisted) model
 
 ##### d_campaign
-- `campaigns` exposed as dimension table.
+- `campaigns` exposed as dimension table
 - `table` (persisted) model
 
 ##### d_customer
-- `customers` exposed as dimension table.
+- `customers` exposed as dimension table
 - `table` (persisted) model
 
 ##### d_sku
@@ -108,11 +109,12 @@ Converts column to local time (`America/Los_Angeles`)
 
 ### Facts
 ##### f_registrations
-- `customers` exposed as fact table.
+- `customers` exposed as fact table
 - `table` (persisted) model
 
 ##### f_orders
-- `orders` exposed as fact table.
+- `orders` exposed as fact table
+- looks up `campaign_key` from `d_campaign`
 - `table` (persisted) model
 
 ## Conventions
