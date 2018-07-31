@@ -76,4 +76,10 @@ CREATE USER "TABLEAU_USER"
   PASSWORD = 'PASSWORD'; -- Single quote!
 GRANT ROLE "BI_TOOLS_ROLE" TO USER "TABLEAU_USER";
 
+-- for each schema in database fivetran,
+-- give the dbt_role select access to all tables, e.g.:
+GRANT SELECT ON ALL TABLES IN SCHEMA "FIVETRAN.SOURCE_DATA" TO DBT_ROLE;
+-- this may have to be repeated periodically
+
+
 USE ROLE SYSADMIN;
