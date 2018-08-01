@@ -1,8 +1,20 @@
 {{
     config(
-        materialized = 'table'
+        materialized = 'incremental',
+        unique_key = 'order_date',
+        sql_where = 'TRUE'
     )
 }}
+-- We implement the incremental logic here since 'orders' is an ephemeral model
+with recent_orders as
+(
+    select *
+    from {{ ref('orders') }}
+    {% if adapter.already_exists(this.schema, this.table) and not flags.FULL_REFRESH %}
+    where
+        order_date >= {{ n_days_ago('-7') }}
+    {% endif %}
+)
 select
     o.order_date,
     o.order_timestamp,
@@ -16,7 +28,7 @@ select
     '{{ invocation_id }}'::varchar as batch_id,
     '{{ run_started_at }}'::timestamp as batch_ts
 from
-    {{ ref('orders') }} o
+    orders o
     left outer join
     {{ ref('d_campaign') }} c
         on o.campaign_name = c.campaign_name and
