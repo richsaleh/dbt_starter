@@ -121,7 +121,7 @@ Converts column to local time (`America/Los_Angeles`)
 ##### f_orders
 - `orders` exposed as fact table
 - looks up `campaign_key` from `d_campaign`
-- `table` (persisted) model
+- `incremental` model that loads data from `orders` for last `n` days unless refreshed via `--full-refresh`
 
 Here's a compiled graph of the model (from https://graph.sinterdata.com):
 ![model_graph](model_graph.png)
