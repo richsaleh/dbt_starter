@@ -38,7 +38,7 @@ my-profile:
             warehouse: dbt
             schema: dt
 
-        target: dev
+    target: dev
 ```
 
 Note: this project makes use of macros from the `dbt_utils` package as defined in `packages.yml`
