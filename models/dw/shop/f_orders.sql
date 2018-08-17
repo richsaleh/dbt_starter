@@ -10,7 +10,7 @@ with recent_orders as
 (
     select *
     from {{ ref('orders') }}
-    {% if adapter.already_exists(this.schema, this.table) and not flags.FULL_REFRESH %}
+    {% if incrementalize(this) %}
     where
         order_date >= {{ n_days_ago('-7') }}
     {% endif %}
