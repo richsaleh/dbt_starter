@@ -19,6 +19,9 @@ models:
     enabled: true        # configs defined here are applied to _all_ packages
 
     starter_dw:
+        post-hook:
+            - "grant select on {{ this }} to role bi_tool_role"
+
         base:
             schema: "_base"
         dw:
@@ -46,5 +49,6 @@ models:
 
 on-run-end:
     # make sure to give your BI tools access to all the tables dbt maintains:
-    - 'GRANT USAGE ON SCHEMA "{{ target.schema }}" TO ROLE BI_TOOL_ROLE; GRANT SELECT ON ALL TABLES IN SCHEMA "{{ target.schema }}" TO ROLE BI_TOOL_ROLE'
-    - 'ALTER WAREHOUSE IF EXISTS "DBT" SUSPEND;'
+    - "grant usage on schema {{ target.schema }} to role bi_tool_role;"
+    - "grant select on all tables in schema {{ target.schema }} to role bi_tool_role"
+    - "alter warehouse if exists dbt suspend;""
