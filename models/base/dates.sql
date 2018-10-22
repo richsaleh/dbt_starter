@@ -7,8 +7,8 @@ with dates as
 (
     {{ dbt_utils.date_spine(
         datepart="day",
-        start_date="to_date('01/01/2016', 'mm/dd/yyyy')",
-        end_date="dateadd(week, 53, current_date)"
+        start_date="to_date('01/01/2013', 'mm/dd/yyyy')",
+        end_date="date_trunc('year', dateadd(week, 3*53, current_date))"
        )
     }}
 ),
@@ -32,6 +32,11 @@ select
     end::int as day_of_week,
     dayname(d.calendar_date) as day_of_week_name,
     to_char(d.calendar_date, 'Dy') as day_of_week_name_short,
+    date_part('day', d.calendar_date)::int as day_of_month,
+    row_number() over(
+        partition by date_trunc('quarter', d.calendar_date)
+        order by d.calendar_date
+        )::int as day_of_quarter,
     date_part('doy', d.calendar_date)::int as day_of_year,
     date_trunc('week', d.calendar_date)::date as week_start_date,
     dateadd('day', 6, date_trunc('week', d.calendar_date))::date as week_end_date,
